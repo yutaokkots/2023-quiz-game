@@ -1,10 +1,30 @@
 :root {
-    --main-body
+
 }
 
 
 body {
-    display:grid;
-    grid-template-columns: 20vh auto 20vh;
-    grid-template-rows: 20vh auto 20vh;
+    background-color: aquamarine;
+    display: grid;
+    grid-template-columns: 30vh auto 30vh;
+    grid-template-rows: 20vh auto auto;
+    grid-template-areas: 
+    tl tc tr
+    cl cc cr
+    bl bc br; 
+}
+
+.tl, .tc, .tr, .cl, .cr, .bl, .bc, .br {
+    background-color: red;
+}
+
+
+body div {
+    background-color: red;
+    width: 20px ;
+}
+
+.quiz {
+    background-color: aqua;
+    width: 40px;
 }
