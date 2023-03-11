@@ -35,7 +35,7 @@ const mainElement = document.querySelector("main")
 mainElement.addEventListener('click', (evt) => {
     console.log(evt.target)
     console.log(evt.target.tagName)
-
+    loadNewQuestionsAndAnswers()
     render()
 })
 
@@ -70,18 +70,56 @@ function initializeGame(){
     // Second, updates the global array 'gameStatus', with the above information, 
     //     by updating total number of questions, located at index 1. 
     gameStatus.splice(1, 1, questionTotal);
+    console.log(gameStatus)
 }
 
 // loadNewQuestion() -> loads the new question into the 'gameStatus' global variable.    
 function loadNewQuestion(){
     // For initialization of the game, the first question is assigned an index of 0 in the global variable quizQuestionOrder. 
-    // In order not to reassign the first question, skip this step if gameStatus[0] = 0.
+    // In order not to reassign the first question, if gameStatus[0] = 0, skip this step .
     // gameStatus[0] contains information about which question is being asked from the global array, 'quizQuestionOrder'
-    // the followint if statement updates 'gameStatus' at index = 0 to the question number. 
+    // the following if statement updates 'gameStatus' at index = 0 to the question number. 
     if (gameStatus[0] !== 0){
         let questionNumber = quizQuestionOrder[gameStatus[0]+1]
         gameStatus.splice(0, 1, questionNumber)
     }; 
+};
+
+// loadNewQuestionsAndAnswers() -> loads the new possible multiple choice Q+A's into DOM elements
+function loadNewQuestionsAndAnswers(){
+    // The new question and answer are displayed in three areas. 
+    // The first area shows the question number. 
+    let titleElement = document.querySelector("#number")
+    let newTitle = document.createElement("h3")
+    newTitle.innerText = `Question ${gameStatus[0]+1}`
+    titleElement.appendChild(newTitle)
+
+    let questionElement = document.querySelector("#question")
+    let newQuestion = document.createElement("h4")
+    newQuestion.innerText = questionSet[quizQuestionOrder[gameStatus[0]]][0]
+    questionElement.appendChild(newQuestion)
+
+    let answer1DivElement = document.querySelector("#answer-1")
+    let answer1El = document.createElement("p")
+    answer1El.innerText = questionSet[quizQuestionOrder[gameStatus[0]]][1][0]
+    answer1DivElement.appendChild(answer1El)
+
+    let answer2DivElement = document.querySelector("#answer-2")
+    let answer2El= document.createElement("p")
+    answer2El.innerText = questionSet[quizQuestionOrder[gameStatus[0]]][1][1]
+    answer2DivElement.appendChild(answer2El)
+
+    let answer3DivElement = document.querySelector("#answer-3")
+    let answer3El = document.createElement("p")
+    answer3El.innerText = questionSet[quizQuestionOrder[gameStatus[0]]][1][2]
+    answer3DivElement.appendChild(answer3El)
+
+    let answer4DivElement = document.querySelector("#answer-4")
+    let answer4El = document.createElement("p")
+    answer4El.innerText = questionSet[quizQuestionOrder[gameStatus[0]]][1][3]
+    answer4DivElement.appendChild(answer4El)
+
+
 };
 
 
