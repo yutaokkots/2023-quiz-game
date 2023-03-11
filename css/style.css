@@ -1,0 +1,10 @@
+:root {
+    --main-body
+}
+
+
+body {
+    display:grid;
+    grid-template-columns: 20vh auto 20vh;
+    grid-template-rows: 20vh auto 20vh;
+}
