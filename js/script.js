@@ -20,9 +20,26 @@ let userScore;
 // round the number
 // prints it out on the bottom
 
+// -- addEventListener() -- //
+
+mainElement.addEventListener('click', (evt) => {
+
+    let eventButton = evt.target.tagName = "button";
+
+})
+
+
+
 init();
 
-//calculates the percentage of wins for the game
+//
+
+// returns true or false
+function checkAnswer(){
+
+};
+
+//calculates the percentage of wins for the game, also round the number
 function calulatePercentage (){
 
 };
@@ -37,10 +54,10 @@ function render(){
 
 
 
-function init (
-
-    userScore = [0, 0, 0]
-
-    render()
-);
+function init (){
+    // score = [question correct, question number, score]
+    userScore = [0, 0, 0];
+    renderBoard();
+    render();
+};
 
