@@ -15,16 +15,16 @@ body {
 }
 
 .tl, .tc, .tr, .cl, .cr, .bl, .bc, .br {
-    background-color: red;
+    background-color: white;
 }
 
 
 body div {
-    background-color: red;
-    width: 20px ;
+    background-color: gray;
+
 }
 
 .quiz {
     background-color: aqua;
-    width: 40px;
+    width: 500px;
 }
