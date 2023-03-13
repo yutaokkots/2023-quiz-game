@@ -1,4 +1,5 @@
 // -- constants -- //
+//export
 const QUESTIONS_PYTHON = {
   0:  ["An array is to an object, as list is to a(n)_______.", ["dictionary","reference","glossary","object","array","microarray"], 0],
   1:  ["A template literal is to Javascript as _______ is to Python.", ["f-string", "g-string","template-literal","string-literal","string-template","variable-template"], 0],

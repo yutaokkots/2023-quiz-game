@@ -1,40 +1,78 @@
 :root {
 
 }
+body{
+    background-color: #617143;
+}
+
+@media only screen and (min-width: 600px) {
+    main {
+        display: grid;
+        grid-template-columns: 10vw auto 10vw;
+        grid-template-rows: auto auto auto;
+        grid-template-areas: 
+        tl tc tr
+        cl cc cr
+        bl bc br; 
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    main {
+        display: grid;
+        grid-template-columns: 5vw auto 5vw;
+        grid-template-rows: 10vh auto 20vh;
+        grid-template-areas: 
+        tl tc tr
+        cl cc cr
+        bl bc br; 
+    }
+}
 
 
-body {
+main {
     display: box-sizing;
-    background-color: aquamarine;
+    background-color: #617143;
     display: grid;
-    grid-template-columns: 30vh auto 30vmin;
-    grid-template-rows: 20vh auto 20vh;
+    grid-template-columns: 20vw auto 20vw;
+    grid-template-rows: 10vh auto 10vh;
     grid-template-areas: 
     tl tc tr
     cl cc cr
     bl bc br; 
-    color: aliceblue
+    color: #EDE9D5;
+    font-family: 'Source Serif Pro', arial, serif;
 }
 
-.tl, .tc, .tr, .cl, .cr, .bl, .bc, .br {
-    background-color: white;
+h3 {
+
+}
+h3 span{
+    color:#E7AB9A;
+}
+h3, h4 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
-body div {
-}
 
 .question{
     align-items:center;
 }
 
 .quiz {
-    background-color: gray;
+    background-color: #DF7857;
+    padding: 1rem;
+    border-radius: 0.5rem;
 }
 
-.quiz div{
-    height: auto;
+#button{
+    font-family: 'Source Serif Pro', arial, serif;
+    background-color: #EDE9D5;
+    border: none;
 }
 
-.quiz p {
-
+#resultBox{
+    font-size:0.8rem;
+    margin-top: 0.5rem;
 }
