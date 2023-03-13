@@ -15,7 +15,7 @@ In the source file, there are also two other question libraries that are related
 <h2>The Gameplay</h2>
 The gameplay is simple.  A user can select and click through the questions.<br>
 For each multiple-choice question, by editing the library array, a user can add as many false answers as desired.<br>
-<div align="center"> <img src="readme_files/sample-object.png" width='500'></div>
+<div align="center"> <img src="readme_files/sample_object.png" width='500'></div>
 In the library array, each question (herein, referred to as [Q],) has the following template:<br>
 `[[question],[correctAnswer, incorrectAnswer, incorrectAnswer, . . . ], int]`<br>
 where:<br>
@@ -25,7 +25,8 @@ where:<br>
 <br>
 Generally, position [Q][1][0] contains the correct answer, and all following indices (e.g. [Q][1][1]. [Q][1][2]. [Q][1][3]. [Q][1][4], [Q][1][5]... etc.) contain incorrect answers. <br>
 The reason I designed this program to include a multitude of false answers was to make the game more interesting. It would be possible to optimize the false answers so that the questions can be easier or more difficult.<br>
-Another important aspect was to include an exception parameter, indicated by position [2].
+
+Another important aspect was to include an exception parameter, indicated by position [2].<br>
 In this current version of the game, [Q][1][2] = 1 indicates that a single answer at position [Q][1][0] is the correct answer, while [Q][1][2] = 0 indicates that all answers are acceptable.<br>
 Proceeding versions of this game can include other options for this parameter (for example: [Q][1][2] = 2 -> two answers are acceptable,[Q][1][2] = 3 -> three answers are acceptable, etc.) <br>
 
