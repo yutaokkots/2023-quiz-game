@@ -4,27 +4,37 @@
 
 
 body {
+    display: box-sizing;
     background-color: aquamarine;
     display: grid;
-    grid-template-columns: 30vh auto 30vh;
-    grid-template-rows: 20vh auto auto;
+    grid-template-columns: 30vh auto 30vmin;
+    grid-template-rows: 20vh auto 20vh;
     grid-template-areas: 
     tl tc tr
     cl cc cr
     bl bc br; 
+    color: aliceblue
 }
 
 .tl, .tc, .tr, .cl, .cr, .bl, .bc, .br {
     background-color: white;
 }
 
-
 body div {
-    background-color: gray;
+}
 
+.question{
+    align-items:center;
 }
 
 .quiz {
-    background-color: aqua;
-    width: 500px;
+    background-color: gray;
+}
+
+.quiz div{
+    height: auto;
+}
+
+.quiz p {
+
 }

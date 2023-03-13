@@ -7,7 +7,7 @@ const QUESTIONS_PYTHON = [
     ["A ______ returns the remainder of a division operation", ["%","/?","&|","$!","$","&"], 1],
     ["In order to iterate with a key:index pair, the ______ function may be used in Python", ["enumerate()","itemize()","index()","print()","for...of..."], 1],
     ["What is the name of the immutable data type out of the three listed here?: {'1':'2'} or (1,2) or [1,2]", ["tuple","buccal","ducal","nuptial","list","array","object","dictionary"], 1],
-    ["When creating a Class, the following is used to 'construct' the class", ["__init__","constructor()","initializer()","__start__","def"], 1],
+    ["When creating a Class, the following unique key word is used to 'construct' the class", ["__init__","constructor()","initializer()","__start__","def"], 1],
     ["This referential key is used inside a Class in Python",["self","this","my","at","from"], 1],
     ["What is the result of this conditional statement in Python?: if 2 == '2':",["False","True","falsey","truthy","undefined","null"], 1],
     ["Space or tab?", ["space","tab","space-ish","tab-ish"], 0],
@@ -16,8 +16,12 @@ const QUESTIONS_PYTHON = [
     ["In conditional statements, which of the following is not a valid command?",["else if","elif","else","if"], 1]
 ]
   
-const QUESTIONS_INDIA = {
-}
+const QUESTIONS_RANDOM = [
+    ["Who dropped the pot of chili?", ["Kevin", "Michael", "Dwight", "Angela"], 1],
+    ["Who shot first?", ["Han", "Ben", "Rey", "Galen"], 1],
+    ["Who jumped off the building?", ["Denholm", "Roy", "Moss","Jen"], 1],
+    ["Who started the fire?", ["Ryan", "Creed", "Jim", "Nick"], 1]
+]
 
 // -- state variables-- //
 let gameStatus;             // 'gameStatus' keeps the current score, and the overall question number user is on
@@ -28,45 +32,61 @@ let quizQuestionsShuffled;  // 'quizQuestionsShuffled' includes an array of the 
 const mainElement = document.querySelector("main")
 const titleElement = document.querySelector("#number")
 const questionElement = document.querySelector("#question")
-const answerDivElement = document.querySelectorAll(".answer")
+let answerDivElements = document.getElementsByClassName(".answer")
+
 
 // -- addEventListener() -- //
-mainElement.addEventListener('click', (evt) => {
-    if (evt.target.className = ""){
+mainElement.addEventListener('click', controller)
+
+function controller(evt) {
+    // guard -> ignore undefined areas
+    if (evt.target.className === undefined){
         return;
     }
-
-    console.log(evt.target.id)
-    console.log()
-
-    // If click is on one of the answers, change 'gameStatus[2]', (user choice)
-    gameStatus.splice(2, 1, +evt.target.id)
-
-    // If click is on one of the answers, change 'gameStatus[2]', (user choice)
-    gameStatus.splice(2, 1, +evt.target.id)
-
-    // if 0, then on question page
-    if (gameStatus[5] = 0){
-        console.log(evt.target.tagName)
-
-        console.log(gameStatus)
-        console.log(evt.target.tagName)
-
-    // if 1, then on answer page
-    } else if (gameStatus[5] = 1) {
-
-
-        let questionNo = gameStatus[0]
-        gameStatus.splice(0, 1, questionNo+1);
-        console.log(checkAnswer()) 
-        //update 
-        gameStatus.splice(5, 1, 0);
-        questionOrAnswerPage()
-
+    // If click is on one of the answers, change 'gameStatus[2]' to the user's choice.
+    let selection;
+    if (evt.target.className === "answer" || evt.target.tagName === "SPAN"){
+        if (evt.target.tagName === "SPAN"){
+            selection = +evt.target.id
+        }
+        selection = +evt.target.id
+        gameStatus.splice(2, 1, selection)
     }
-    calculatePercentageWin()
-    render()
-})
+    displayChoiceFeedback()
+
+    // In the event of a button click, the game progresses. (1) Feedback->(if gameStatus[5]=-1); (2) Next Question->(if gameStatus[5]=+1)
+    if (evt.target.id === "button"){
+        // If the game is on the feeback screen, change the gameStatus[5] to next question.
+        let currentSelection = gameStatus[5]
+        if (gameStatus[5] < 0){
+            if (gameStatus[2] === null){
+                return;
+            }
+            gameStatus.splice(5, 1, currentSelection * -1)
+            // Updates 'gameStatus[3]' containing the userScore if the answer is correct. 
+            if (checkAnswer() === true){
+                userScore = gameStatus[3]
+                gameStatus.splice(3, 1, userScore+1)
+                console.log("true")
+            } else{
+                console.log("false")
+                return;
+            }
+            renderScore()
+
+        // if 1, then on answer page
+        } else if (gameStatus[5] > 0) {
+            clearChoices()
+            //updates to the next question
+            gameStatus.splice(2, 1, null)   
+            gameStatus.splice(5, 1, currentSelection * -1)
+            let currentQuestion = gameStatus[0]
+            gameStatus.splice(0, 1, currentQuestion+1)
+            render()
+        }
+    }
+}
+
 
 // -- functions -- //
 init();
@@ -77,16 +97,16 @@ function checkAnswer(){
     return gameStatus[1] === gameStatus[2];
 };
 
-// questionOrAnswerPage -> changes the 'gameStatus[5]' either + or - for next question
-function questionOrAnswerPage(){
-    let nextQuestion = gameStatus[5]*-1
-    gameStatus.slice(5, 1, nextQuestion)
-};
+// // questionOrAnswerPage -> changes the 'gameStatus[5]' either + or - for next question
+// function questionOrAnswerPage(){
+//     let nextQuestion = gameStatus[5]*-1
+//     gameStatus.slice(5, 1, nextQuestion)
+// };
 
 // 'gameStatus' -> [question number / correct answer / user choice / questions correct / total question / Q or A page].
 // calculatePercentageWin() -> calculates the percentage of wins for the game, also rounds the number
 function calculatePercentageWin(){
-    return Math.ceil(gameStatus[3]/gameStatus[4]*100);
+    return Math.ceil(gameStatus[3]/gameStatus[1]*100);
 };
 
 // orderRandomizer() -> inputs an array, 'arr', and returns a new array, ordered randomly.
@@ -113,21 +133,28 @@ function initializeGame(){
 
 // loadNewQuestionsAndAnswers() -> loads the new Question and possible multiple choice A's into DOM elements
 function loadNewQuestionsAndAnswers(){
-    resetBoard()
+
     // The variable 'currentQuestion' ultimately references the index of the const Library,
     // while 'gameStatus[0]' references the index = 0 item of that list. 
     let currentQuestion = quizQuestionsShuffled[gameStatus[0]]
     // The new question and answer are displayed in three areas. 
     // 1) The first area shows the question number. 
     //              let titleElement = document.querySelector("#number")
+    if (titleElement.hasChildNodes() === true){
+        titleElement.removeChild(titleElement.firstChild)
+    }   
     let newTitle = document.createElement("h3")
     newTitle.innerText = `Question ${gameStatus[0]+1}`
     titleElement.appendChild(newTitle)
     // 2) The second area shows the question. 
     //              let questionElement = document.querySelector("#question")
+    if (questionElement.hasChildNodes() === true){
+        questionElement.removeChild(questionElement.firstChild)
+    }   
     let newQuestion = document.createElement("h4")
     newQuestion.innerText = currentQuestion[0]
     questionElement.appendChild(newQuestion)
+
     // Some questions have more than four possible answers, although only four are shown. Only one answer is true. 
     // Therefore, the following randomizes the false answers, and randomizes it with the correct answer.
     // When the user looks at the trivia answers, the choices are randomly placed, yet contain a single true answer.
@@ -145,47 +172,96 @@ function loadNewQuestionsAndAnswers(){
     gameStatus.splice(1, 1, correctAnswerIndex)
     // 3) The third area shows the answers, randomized. 
     let letterArr = ['a', 'b', 'c', 'd']
-    let answerDivArray = Array.from(answerDivElement)
-
+    //let answerDivArray = Array.from(answerDivElement)
+    // The DOM elements are looped through to include new answers.
     ultimateArr.forEach((answer, index) => {
-        let answerElement = document.createElement("p")
-        answerDivArray[index].innerText = `${letterArr[index]}) ${answer}`
-        answerDivArray[index].appendChild(answerElement)
-
+        let answerDivElement = document.querySelector(`.answer-${index}`)
+        if (answerDivElement.hasChildNodes() === true){
+            answerDivElement.removeChild(answerDivElement.firstChild)
+        }
+        let answerElement = document.createElement("span")
+        answerElement.innerText = `${letterArr[index]}) ${answer}`
+        answerElement.setAttribute("id", `${index}`)
+        answerDivElement.appendChild(answerElement)
     })
-
 };
 
-// displayAnswerFeedback(){}
-function displayAnswerFeedback(){
+
+// clearChoices() -> clears the user answer choice selections
+function clearChoices(){
+    for (let i=0; i<4;i++){
+        let answerAreas= document.querySelector(`.answer-${i}`)
+            answerAreas.style.color = ""
+    }
+}
+
+// displayChoiceFeedback() // highlights the selected answer
+function displayChoiceFeedback(){
+    if (gameStatus[2] === null){
+        return
+    }
+    clearChoices()
+    let userSelection = gameStatus[2]
+    let userSelectEl = document.getElementById(`${userSelection}`)
+    userSelectEl.style = ("color:yellow;")
+}
+
+// clears the user's feedback
+function clearAnswer(){
+    let resultBox = document.getElementById("#resultBox")
+    console.log(resultBox)
+    if (resultBox.hasChildNodes() === true){
+        resultBox.removeChild(titleElement.firstChild)
+    }
+}
+
+// displays the answer on the screen to give user feedback
+function renderAnswer(){
+    // The correct answer is displayed in the resultBox div
+    let letterArr = ['a', 'b', 'c', 'd']
+    let resultBox = document.getElementById("resultBox")
+    let correctAnswer = document.createElement('span')
+    correctAnswer.innerText = `The correct answer is: (${letterArr[gameStatus[1]]}) ${quizQuestionsShuffled[gameStatus[0]][1][0]}`
+    resultBox.appendChild(correctAnswer)
+}
+
+// displays the score on the current screen
+function renderScore(){
+    // The current score id displayed in the score div
+    let scoreBox = document.getElementById("score")
+    let currentStatus = document.createElement('p')
+    currentStatus.innerText = `Question: ${gameStatus[0]} / ${gameStatus[4]}\nScore: ${calculatePercentageWin()} `
+    scoreBox.appendChild(currentStatus)
 };
 
-// resetBoard() -> takes the 'gameStatus[5]' information (whether it is on the question page or answer page) and clears content based on it
-function resetBoard(){
-    titleElement.innerText = ""
-    questionElement.innerText = ""
-
-};
 
     
 // renderBoard() -> takes the global variables, 'gameStatus' and 'quizQuestionShuffled' to render the gameboard
-function renderBoard(){
-    loadNewQuestionsAndAnswers()
+function renderQuestion(){
+    if (gameStatus[5] < 0){
+        loadNewQuestionsAndAnswers()
+    }   
 };
 
-
-function render(){  
-
-    renderBoard();
+function renderBoard(){
 
 }
 
-function init (){
+
+function render(){ 
+
+    renderQuestion();
+    renderBoard();
+}
+
+
+function init(){
     // 'gameStatus' -> [question number / correct answer / user choice / questions correct / total question / Q or A page].
-    gameStatus = [0,0,0,0,0,1]
+    gameStatus = [0,0,null,0,0,-1]
     quizQuestionsShuffled = [];  
-    questionSet = QUESTIONS_PYTHON
+    questionSet = QUESTIONS_RANDOM
     initializeGame();
+    //resetBoard()
     render();
 };
 
