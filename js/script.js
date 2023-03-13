@@ -10,7 +10,7 @@ const QUESTIONS_PYTHON = [
     ["What is the name of the immutable data type out of the three listed here?: {'1':'2'} or (1,2) or [1,2]", ["tuple","buccal","ducal","nuptial","list","array","object","dictionary"], 1],
     ["When creating a Class, the following unique key word is used to 'construct' the class", ["__init__","constructor()","initializer()","__start__","def"], 1],
     ["This referential key is used inside a Class in Python",["self","this","my","at","from"], 1],
-    ["What is the result of this conditional statement in Python?: if 2 == '2':",["False","True","falsey","truthy","undefined","null"], 1],
+    ["What is the result of this line in Python?: print(2 == '2')",["False","True","falsey","truthy","undefined","null"], 1],
     ["Space or tab?", ["space","tab","space-ish","tab-ish"], 0],
     ["Variables in Python are written in ______-case",["snake","camel","lisp","flat","horse","worm"], 1],
     ["Which of the following is not a primitive data type in Python (For example, BigInt does not exist in Python)",["null","int","str","float","bool"], 1],
