@@ -1,12 +1,12 @@
-// Python quiz created because I need to keep track of python vs javascript concepts.
+// Python quiz created to keep track of python vs javascript concepts.
 // -- constants -- //
 // format of questions and answers: [[question],[correctAnswer, incorrectAnswer, incorrectAnswer, . . . ], (1) single correct answer or (0) all answers correct]
 const QUESTIONS_PYTHON = [
-    ["An array is to an object, as list is to a(n)_______.", ["dictionary","reference","glossary","object","array","microarray"], 1],
+    ["An array is to an object, as list is to a(n)_______.", ["dictionary","reference","glossary","object","array","microarray", "encyclopedia"], 1],
     ["A template literal is to Javascript as _______ is to Python.", ["f-string", "g-string","template-literal","string-literal","string-template","variable-template"], 1],
     ["This symbol or operator represents a comment in JS, and a floor division in Python", ["//","@@", "**", "##","::",".."], 1],
     ["A ______ returns the remainder of a division operation", ["%","/?","&|","$!","$","&"], 1],
-    ["In order to iterate with a key:index pair, the ______ function may be used in Python", ["enumerate()","itemize()","index()","print()","for...of..."], 1],
+    ["In order to iterate with a key:index pair, the ______ function may be used in Python", ["enumerate()","itemize()","index()","print()","for...of...", "for...with..."], 1],
     ["What is the name of the immutable data type out of the three listed here?: {'1':'2'} or (1,2) or [1,2]", ["tuple","buccal","ducal","nuptial","list","array","object","dictionary"], 1],
     ["When creating a Class, the following unique key word is used to 'construct' the class", ["__init__","constructor()","initializer()","__start__","def"], 1],
     ["This referential key is used inside a Class in Python",["self","this","my","at","from"], 1],
@@ -17,11 +17,20 @@ const QUESTIONS_PYTHON = [
     ["In conditional statements, which of the following is not a valid command?",["else if","elif","else","if"], 1]
 ]
   
-const QUESTIONS_RANDOM = [
+const QUESTIONS_MEDIA = [
     ["Who dropped the pot of chili?", ["Kevin", "Michael", "Dwight", "Angela", "Gabe"], 1],
     ["Who shot first?", ["Han", "Ben", "Rey", "Galen", "D. Maul"], 1],
     ["Who jumped off the building?", ["Denholm", "Roy", "Moss","Jen", "Richmond"], 1],
     ["Who started the fire?", ["Ryan", "Creed", "Jim", "Nick", "Pam"], 1]
+]
+
+const QUESTIONS_INDIA = [
+    ["What is the official name of India?", ["Bharata", "India", "Sindhu", "Raj", "Gabion"], 1],
+    ["Which region is NOT located in India?", ["Hyderabad", "Ahmedabad", "Dhanbad", "Balangir", "Hyperabad", "Mumbai"], 1],
+    ["Which of the following colors is not in the Indian flag?", ["Gray", "Orange", "White", "Green", "Blue"], 1],
+    ["The following is the most important ingredient in Roghan Josh", ["mutton", "star anise", "lentils", "chickpeas", "goat cheese"], 1],
+    ["Cows are associated with this goddess:", ["Kamadhenu", "Radha", "Kali", "Gayatri"], 1],
+
 ]
 
 // -- state variables-- //
@@ -55,7 +64,8 @@ function controller(evt) {
     // In the event of a button click, the game progresses. (1) Feedback->(if gameStatus[5]=-1); (2) Next Question->(if gameStatus[5]=+1)
     
     if (renderFinish() === true){
-        finalScore()
+        clearScore()
+        init()
     } else if (evt.target.id === "button"){
         // If the game is on the feedback screen, change the gameStatus[5] to next question.
         let currentSelection = gameStatus[5]
@@ -81,8 +91,8 @@ init();
 function init(){
     // 'gameStatus' -> [question number / correct answer / user choice / questions correct / total question / Q or A page].
     gameStatus = [0,0,null,0,0,-1]
+    questionSet = [...QUESTIONS_PYTHON]
     quizQuestionsShuffled = [];  
-    questionSet = QUESTIONS_RANDOM
     initializeGame();
     render();
 };
@@ -100,6 +110,9 @@ function initializeGame(){
 
 // checkAnswer() -> Compares 'gameStatus[1]'(corr. answer) and 'gameStatus[1]' (user choice), and returns true or false
 function checkAnswer(){
+    if (quizQuestionsShuffled[gameStatus[0]][2] === 0){
+        return true;
+    }
     return gameStatus[1] === gameStatus[2];
 };
 
@@ -128,17 +141,15 @@ function loadNewQuestionsAndAnswers(){
     // The new question and answer are displayed in three areas. 
 
     // 1) The first area shows the question number. 
-    if (titleElement.hasChildNodes() === true){
-        titleElement.removeChild(titleElement.firstChild)
-    }   
+
+    clearBoard()
+
     let newTitle = document.createElement("h3")
     newTitle.innerHTML = `Question ${gameStatus[0]+1} <span> of ${gameStatus[4]}<span>`
     titleElement.appendChild(newTitle)
 
     // 2) The second area shows the question. 
-    if (questionElement.hasChildNodes() === true){
-        questionElement.removeChild(questionElement.firstChild)
-    }   
+
     let newQuestion = document.createElement("h4")
     newQuestion.innerText = currentQuestion[0]
     questionElement.appendChild(newQuestion)
@@ -165,9 +176,9 @@ function loadNewQuestionsAndAnswers(){
         // The DOM elements are looped through to include new answers.
         ultimateArr.forEach((answer, index) => {
             let answerDivElement = document.querySelector(`.answer-${index}`)
-            if (answerDivElement.hasChildNodes() === true){
-                answerDivElement.removeChild(answerDivElement.firstChild)
-            }
+            // if (answerDivElement.hasChildNodes() === true){
+            //     answerDivElement.removeChild(answerDivElement.firstChild)
+            // }
             let answerElement = document.createElement("span")
             answerElement.innerText = `${letterArr[index]}) ${answer}`
             answerElement.setAttribute("id", `${index}`)
@@ -199,6 +210,14 @@ function clearChoices(){
             answerAreas.style.color = ""
 }};
 
+function clearScore(){
+    let scoreBox = document.getElementById("score")
+    if (scoreBox.hasChildNodes() === null){
+        return;
+    } else if (scoreBox.hasChildNodes() === true){
+            scoreBox.removeChild(scoreBox.firstChild)
+}}
+
 // clearAnswer() -> Clears the answer to the user from the question
 function clearAnswer(){
     if (resultBox.hasChildNodes() === null){
@@ -207,6 +226,20 @@ function clearAnswer(){
     if (resultBox.hasChildNodes() === true){
         resultBox.removeChild(resultBox.firstChild)
 }};
+
+function clearBoard(){
+    if (titleElement.hasChildNodes() === true){
+        titleElement.removeChild(titleElement.firstChild)
+    }   
+    if (questionElement.hasChildNodes() === true){
+        questionElement.removeChild(questionElement.firstChild)
+    }   
+    for (let i=0; i<4; i++) {
+        let answerDivElement = document.querySelector(`.answer-${i}`)
+        if (answerDivElement.hasChildNodes() === true){
+            answerDivElement.removeChild(answerDivElement.firstChild)
+        }}
+}
 
 // displays the answer on the screen to give user feedback
 function renderAnswer(){
@@ -219,22 +252,21 @@ function renderAnswer(){
     resultBox.appendChild(correctAnswer)
 };
 
-// displays the score on the current screen
+// Displays the score on the current screen.
 function renderScore(){
     let scoreBox = document.getElementById("score")
-    // if (scoreBox.hasChildNodes() === null){
-    //     console.log(scoreBox.hasChildNodes())
-    //     return;
-    // }
+
     if (scoreBox.hasChildNodes() === true){
         scoreBox.removeChild(scoreBox.firstChild)
     }
+
     // The current score id displayed in the score div
     let currentStatus = document.createElement('p')
     currentStatus.innerText = `Score: ${calculatePercentageWin()}%`
     scoreBox.appendChild(currentStatus)
 };
 
+// resetButton() -> Toggles between next, and submit, on the button.
 function resetButton(){
     if (renderFinish()){
         return;
@@ -252,14 +284,15 @@ function renderFinish(){
     return gameStatus[4] > gameStatus[0] ? false : true;
 }
     
+// finalScore() -> Displays the final score once the game is complete.
 function finalScore(){
     buttonElement.innerHTML = ""
     buttonElement.innerHTML = "Play Again"
-    console.log(gameStatus)
-    init()
+    clearBoard()
+    clearAnswer()
 }
 
-// renderBoard() -> takes the global variables, 'gameStatus' and 'quizQuestionShuffled' to render the gameboard.
+// renderQuestion() -> Loads the new questions to the board.
 function renderQuestion(){
     clearChoices()
     clearAnswer()
@@ -267,6 +300,7 @@ function renderQuestion(){
     resetButton()
 };
 
+//renderBoard() -> After ther user places a guess, calculates the score and displays game status.
 function renderBoard(){
     if (checkAnswer() === true){
         updateScore()
