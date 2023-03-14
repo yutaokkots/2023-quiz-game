@@ -24,7 +24,7 @@ where:<br>
 2) position [1] are the multiple choice answers, and<br>
 3) position [2] is a number that indicates an exception.<br>
 <br>
-Generally, position [Q][1][0] contains the correct answer, and all following indices (e.g. Q[1][1]. Q[1][2]. Q[1][3]. Q[1][4], Q[1][5]... etc.) contain incorrect answers. <br>
+Generally, position Q[1][0] contains the correct answer, and all following indices (e.g. Q[1][1]. Q[1][2]. Q[1][3]. Q[1][4], Q[1][5]... etc.) contain incorrect answers. <br>
 <br> 
 The reason I made it possible a multitude of false answers, was to make the game more interesting. Someone creating a new quiz with this program could optimize the false answers so that the questions can be easier or more difficult.<br> 
 <br> 
