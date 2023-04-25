@@ -17,7 +17,7 @@ const QUESTIONS_PYTHON = [
     ["In conditional statements, which of the following is not a valid command?",["else if","elif","else","if"], 1],
     ["Which of the folowing, when evaluated, will output True?", ["range(1)", "''", "{}", "[]", "None", "()", "0", "0.0" ], 1],
     ["Which of the folowing, when evaluated, will output True?", ["8 != 7", "8 != 8", "'3' == 3", "2 > 2", "7 - 7"], 1],
-    ["Which of the folowing, when evaluated, will output True?", ["False or True", "0 or 'hello world'", "False and True", "'hello world' and 0", "not [1]"], 1],
+    ["Which of the folowing, when evaluated, will output True?", ["False or True", "0 and 'hello world'", "False and True", "'hello world' and 0", "not [1]"], 1],
     ["Which of the folowing, when evaluated, will output False?", ["True and False", "False or True", "True or False", "5 >= 5", "not {}" ], 1],
     ["Which of the folowing, is not a valid function for converting data types?", ["parseInt(item)", "str(item)", "int(item)", "float(item)", "hex(item)", "oct(item)", "tuple(item)", "list(item)", "dict(item)" ], 1],
     ["In order to output the following, which line of code is appropriate?\n lang = 'python' \n>>> I am learning python today", ["print('I am learning ' + lang + ' today')", "Print(f'I am learning {lang} today')", "print(f'I am learning {} today'.format(num))", "print(f'I am learning [lang] today')", "print('I am learning lang today')"], 1],
