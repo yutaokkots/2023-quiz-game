@@ -1,11 +1,11 @@
 body{
-    background-color: #617143;
+    background-color: #B3C99C;
 }
 
 @media only screen and (min-width: 600px) {
     main {
         display: grid;
-        grid-template-columns: 10vw auto 10vw;
+        grid-template-columns: 8vw auto 8vw;
         grid-template-rows: auto auto auto;
         grid-template-areas: 
         tl tc tr
@@ -29,9 +29,9 @@ body{
 
 main {
     display: box-sizing;
-    background-color: #617143;
+    background-color: #B3C99C;
     display: grid;
-    grid-template-columns: 20vw auto 20vw;
+    grid-template-columns: 15vw auto 15vw;
     grid-template-rows: 10vh auto 10vh;
     grid-template-areas: 
     tl tc tr
@@ -49,8 +49,12 @@ h3, h4 {
     margin-bottom: 0.5rem;
 }
 
-.question{
+#question{
     align-items:center;
+}
+
+#question > h4{
+    font-size: 1rem;
 }
 
 .quiz {
@@ -67,7 +71,20 @@ h3, h4 {
     display:inline;
 }
 
+#button:hover{
+    cursor:pointer;
+}
+
 #resultBox{
     font-size:0.8rem;
     margin-top: 0.5rem;
+}
+
+.answer-1, .answer-2, .answer-3, .answer-0{
+    font-size: 0.9rem;
+}
+
+.answer-1:hover, .answer-2:hover, .answer-3:hover, .answer-0:hover{
+    cursor:pointer;
+    color: #d5d1bf;
 }

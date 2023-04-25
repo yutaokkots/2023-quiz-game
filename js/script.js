@@ -10,11 +10,18 @@ const QUESTIONS_PYTHON = [
     ["What is the name of the immutable data type out of the three listed here?: {'1':'2'} or (1,2) or [1,2]", ["tuple","buccal","ducal","nuptial","list","array","object","dictionary"], 1],
     ["When creating a Class, the following unique key word is used to 'construct' the class", ["__init__","constructor()","initializer()","__start__","def"], 1],
     ["This referential key is used inside a Class in Python",["self","this","my","at","from"], 1],
-    ["What is the result of this line in Python?: print(2 == '2')",["False","True","falsey","truthy","undefined","null"], 1],
+    ["What is the output of this line in Python?: print(2 == '2')",["False","True","falsey","truthy","undefined","null"], 1],
     ["Space or tab?", ["space","tab","space-ish","tab-ish"], 0],
     ["Variables in Python are written in ______-case",["snake","camel","lisp","flat","horse","worm"], 1],
     ["Which of the following is not a primitive data type in Python (For example, BigInt does not exist in Python)",["null","int","str","float","bool"], 1],
-    ["In conditional statements, which of the following is not a valid command?",["else if","elif","else","if"], 1]
+    ["In conditional statements, which of the following is not a valid command?",["else if","elif","else","if"], 1],
+    ["Which of the folowing, when evaluated, will output True?", ["range(1)", "''", "{}", "[]", "None", "()", "0", "0.0" ], 1],
+    ["Which of the folowing, when evaluated, will output True?", ["8 != 7", "8 != 8", "'3' == 3", "2 > 2", "7 - 7"], 1],
+    ["Which of the folowing, when evaluated, will output True?", ["False or True", "0 or 'hello world'", "False and True", "'hello world' and 0", "not [1]"], 1],
+    ["Which of the folowing, when evaluated, will output False?", ["True and False", "False or True", "True or False", "5 >= 5", "not {}" ], 1],
+    ["Which of the folowing, is not a valid function for converting data types?", ["parseInt(item)", "str(item)", "int(item)", "float(item)", "hex(item)", "oct(item)", "tuple(item)", "list(item)", "dict(item)" ], 1],
+    ["In order to output the following, which line of code is appropriate?\n lang = 'python' \n>>> I am learning python today", ["print('I am learning ' + lang + ' today')", "Print(f'I am learning {lang} today')", "print(f'I am learning {} today'.format(num))", "print(f'I am learning [lang] today')", "print('I am learning lang today')"], 1],
+
 ]
   
 const QUESTIONS_MEDIA = [
