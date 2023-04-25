@@ -2,6 +2,9 @@
 <h1 align="center">A simple python quiz game</h1>
 <hr>
 <div align="center"> <img src="readme_files/screenshot_1.png" width='500'></div>
+
+## [Play the game here](https://yutaokkots.github.io/2023-quiz-game/)
+
 This is a simple quiz game I created using HTML, CSS, and vanilla JavaScript in two days. This project was completed to show proof of understanding of the model-view-controller framework of web development.<br>
 <br> 
 The current version comes preloaded with a few python related questions that I created. The reason for choosing these questions is because of my constant confusion between javascript and python terminology and concepts. <br>
